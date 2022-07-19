@@ -1,3 +1,9 @@
+## Complete 4 hours of workshop recording is up on my YouTube channel 
+
+[![Kubernetes workshop 101](https://img.youtube.com/vi/PN3VqbZqmD8/0.jpg)](https://www.youtube.com/watch?v=PN3VqbZqmD8)
+
+Download the notes from [here](https://github.com/kubesimplify/workshops-content/blob/main/kubernetes-101/Kubernetes%20workshop.pdf)
+
 ## Simple pod imperative way
 
 `kubectl run nginx --image=nginx --port 80 --dry-run=oclient -oyaml`
@@ -8,8 +14,8 @@ Declarative way
 ```
 kubectl create ns dev
 kubectl create ns testing
-kubectl create saiyam --image=nginx
-kubectl create saiyam --image=nginx -n dev
+kubectl create deploy saiyam --image=nginx
+kubectl create deploy saiyam --image=nginx -n dev
 
 ```
 switch the context
@@ -260,7 +266,7 @@ change CPU to 3
 
 ##deployments
 ```
-kubectl create deploy demo --image=ngins 
+kubectl create deploy demo --image=nginx 
 kubectl set image deployment/nginx nginx=nginx:1.15.2 --record
 kubectl rollout history deployment demo 
 kubectl rollout undo deployment demo --to-revision 2 
@@ -375,7 +381,7 @@ data:
 ```
 
 ```
-apiVersion:v1
+apiVersion: v1
 kind: Pod
 metadata:
   creationTimestamp: null
@@ -451,6 +457,11 @@ The above didn't work and we need to authenticate, so let's use the first client
 
 `curl --cacert /etc/kubernetes/pki/ca.crt --cert client --key key $APISERVER/apis/apps/v1/deployments`
 above you can have the client and the key from the kubeconfig file
+
+```sh
+echo "<client-certificate-data_from kubeconfig>" | base64 -d > client
+echo "<client-key-data_from kubeconfig>" | base64 -d > key
+```
 
 Now using the sA Token 
 1.24 onwards you need to create the secret for the SA 
